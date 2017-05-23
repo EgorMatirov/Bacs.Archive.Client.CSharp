@@ -1,0 +1,12 @@
+[submodule "Bacs.Archive.Client.CSharp/protos/archive"]
+	path = Bacs.Archive.Client.CSharp/protos/archive
+	url = https://github.com/bacsorg/archive.git
+[submodule "Bacs.Archive.Client.CSharp/protos/common"]
+	path = Bacs.Archive.Client.CSharp/protos/common
+	url = https://github.com/bacsorg/common.git
+[submodule "Bacs.Archive.Client.CSharp/protos/problem"]
+	path = Bacs.Archive.Client.CSharp/protos/problem
+	url = https://github.com/bacsorg/problem.git
+[submodule "Bacs.Archive.Client.CSharp/protos/problem_single"]
+	path = Bacs.Archive.Client.CSharp/protos/problem_single
+	url = https://github.com/bacsorg/problem_single.git
