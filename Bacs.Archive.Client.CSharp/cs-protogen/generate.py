@@ -9,6 +9,8 @@ class DefaultList(list):
     def __copy__(self):
         return []
 
+def unpack(args): # Workaround python 3.4
+    return ' '.join(args)
 
 def main():
     parser = argparse.ArgumentParser(description='CSharp protobuf generator')
@@ -31,7 +33,7 @@ def main():
                 if f.endswith('.proto'):
                     os.makedirs(dst, exist_ok=True)
                     cmd = [
-                        *args.protoc,
+                        unpack(args.protoc),
                         '--plugin=protoc-gen-grpc=' + args.grpc_csharp_plugin
                     ] + includes + [
                         '--csharp_out=' + dst,
