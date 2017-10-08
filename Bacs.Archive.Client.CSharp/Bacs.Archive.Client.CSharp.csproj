@@ -11,14 +11,6 @@
     <PackageTags>bacs</PackageTags>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="GeneratedProtos\google\**" />
-    <EmbeddedResource Remove="GeneratedProtos\google\**" />
-    <None Remove="GeneratedProtos\google\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Bacs.Protocols.Archive" Version="0.1.0" />
-    <PackageReference Include="Google.Protobuf" Version="3.2.0" />
-    <PackageReference Include="Grpc" Version="1.2.2" />
-    <PackageReference Include="Grpc.Tools" Version="1.2.2" />
+    <PackageReference Include="Bacs.Protocols.Archive"/>
   </ItemGroup>
 </Project>
