@@ -111,6 +111,12 @@ namespace Bacs.Archive.Client.CSharp
                 .ToDictionary();
         }
 
+        public (string revision, Dictionary<string, StatusResult> statuses) StatusAllIfChanged(string revision)
+        {
+            var result = _innerClient.StatusAllIfChanged(new ArchiveRevision {Value = ByteString.FromBase64(revision)});
+            return (result.Revision.Value.ToBase64(), result.Status.Entry.ToDictionary());
+        }
+
         public Dictionary<string, ImportResult> ImportResult(params string[] ids)
         {
             return _innerClient

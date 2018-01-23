@@ -18,6 +18,7 @@ namespace Bacs.Archive.Client.CSharp
 
         Dictionary<string, StatusResult> Status(params string[] ids);
         Dictionary<string, StatusResult> StatusAll();
+        (string revision, Dictionary<string, StatusResult> statuses) StatusAllIfChanged(string revision);
 
         Dictionary<string, ImportResult> ImportResult(params string[] ids);
         Dictionary<string, StatusResult> Import(params string[] ids);
