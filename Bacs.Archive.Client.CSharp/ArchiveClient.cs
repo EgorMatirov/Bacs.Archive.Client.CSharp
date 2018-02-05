@@ -87,12 +87,24 @@ namespace Bacs.Archive.Client.CSharp
                 .AsEnumerable();
         }
 
+        public async Task<IEnumerable<string>> ExistingAsync(params string[] ids)
+        {
+            var idSet = await _innerClient.ExistingAsync(GrpcExtensions.IdSetFromIds(ids));
+            return idSet.Id.AsEnumerable();
+        }
+
         public IEnumerable<string> ExistingAll()
         {
             return _innerClient
                 .ExistingAll(new Empty())
                 .Id
                 .AsEnumerable();
+        }
+
+        public async Task<IEnumerable<string>> ExistingAllAsync()
+        {
+            var idSet = await _innerClient.ExistingAllAsync(new Empty());
+            return idSet.Id.AsEnumerable();
         }
 
         public Dictionary<string, StatusResult> Status(params string[] ids)
@@ -103,6 +115,12 @@ namespace Bacs.Archive.Client.CSharp
                 .ToDictionary();
         }
 
+        public async Task<Dictionary<string, StatusResult>> StatusAsync(params string[] ids)
+        {
+            var status = await _innerClient.StatusAsync(GrpcExtensions.IdSetFromIds(ids));
+            return status.Entry.ToDictionary();
+        }
+
         public Dictionary<string, StatusResult> StatusAll()
         {
             return _innerClient
@@ -111,10 +129,22 @@ namespace Bacs.Archive.Client.CSharp
                 .ToDictionary();
         }
 
+        public async Task<Dictionary<string, StatusResult>> StatusAllAsync()
+        {
+            var statusAll = await _innerClient.StatusAllAsync(new Empty());
+            return statusAll.Entry.ToDictionary();
+        }
+
         public (string revision, Dictionary<string, StatusResult> statuses) StatusAllIfChanged(string revision)
         {
             var result = _innerClient.StatusAllIfChanged(new ArchiveRevision {Value = ByteString.FromBase64(revision)});
-            return (result.Revision.Value.ToBase64(), result.Status.Entry.ToDictionary());
+            return (result.Revision?.Value?.ToBase64(), result.Status?.Entry?.ToDictionary());
+        }
+
+        public async Task<(string revision, Dictionary<string, StatusResult> statuses)> StatusAllIfChangedAsync(string revision)
+        {
+            var result = await _innerClient.StatusAllIfChangedAsync(new ArchiveRevision {Value = ByteString.FromBase64(revision)});
+            return (result.Revision?.Value?.ToBase64(), result.Status?.Entry?.ToDictionary());
         }
 
         public Dictionary<string, ImportResult> ImportResult(params string[] ids)
@@ -125,6 +155,12 @@ namespace Bacs.Archive.Client.CSharp
                 .ToDictionary();
         }
 
+        public async Task<Dictionary<string, ImportResult>> ImportResultAsync(params string[] ids)
+        {
+            var importResult = await _innerClient.ImportResultAsync(GrpcExtensions.IdSetFromIds(ids));
+            return importResult.Entry.ToDictionary();
+        }
+
         public Dictionary<string, StatusResult> Import(params string[] ids)
         {
             return _innerClient
@@ -133,12 +169,24 @@ namespace Bacs.Archive.Client.CSharp
                 .ToDictionary();
         }
 
+        public async Task<Dictionary<string, StatusResult>> ImportAsync(params string[] ids)
+        {
+            var statusMap = await _innerClient.ImportAsync(GrpcExtensions.IdSetFromIds(ids));
+            return statusMap.Entry.ToDictionary();
+        }
+
         public Dictionary<string, StatusResult> ImportAll()
         {
             return _innerClient
                 .ImportAll(new Empty())
                 .Entry
                 .ToDictionary();
+        }
+
+        public async Task<Dictionary<string, StatusResult>> ImportAllAsync()
+        {
+            var importAll = await _innerClient.ImportAllAsync(new Empty());
+            return importAll.Entry.ToDictionary();
         }
 
         // Flag API is not stable. Not intended for public usage. (from proto)
@@ -150,12 +198,24 @@ namespace Bacs.Archive.Client.CSharp
                 .AsEnumerable();
         }
 
+        public async Task<IEnumerable<string>> WithFlagAsync(params string[] ids)
+        {
+            var withFlag = await _innerClient.WithFlagAsync(GrpcExtensions.IdSetFromIds(ids));
+            return withFlag.Id.AsEnumerable();
+        }
+
         public IEnumerable<string> WithFlagAll()
         {
             return _innerClient
                 .WithFlagAll(new Empty())
                 .Id
                 .AsEnumerable();
+        }
+
+        public async Task<IEnumerable<string>> WithFlagAllAync()
+        {
+            var withFlagAll = await _innerClient.WithFlagAllAsync(new Empty());
+            return withFlagAll.Id.AsEnumerable();
         }
 
         public Dictionary<string, StatusResult> SetFlags(Flag.Types.Reserved[] reservedFlags, string[] customFlags,
